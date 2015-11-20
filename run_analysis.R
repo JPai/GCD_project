@@ -1,6 +1,5 @@
 ##run_analysis.R
-#Description: This R program will take the Samsung data set (the designated 
-#raw data) as the input and create a tidy data set (result_tidy_data.txt).
+#Description: 
 #For further info, please read the README.MD and CodeBook.MD files.
 
 #include libraries
@@ -65,6 +64,8 @@ tidy_data <- aggregate(ext_data[, 3:ncol(ext_data)], list(ext_data$subject_id,
 #change the names of subject_id and activity back
 names(tidy_data)[1] <- "subject_id"
 names(tidy_data)[2] <- "activity"
+names(tidy_data)[3:ncol(tidy_data)] <- 
+        paste("mean-", names(tidy_data)[3:ncol(tidy_data)], sep = "")
 #order the tidy_data by subject_id
 tidy_data <- tidy_data[order(tidy_data$subject_id), ]
 
