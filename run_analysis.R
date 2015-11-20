@@ -1,12 +1,15 @@
-#run_analysis.R
+##run_analysis.R
+#Description: This R program will take the Samsung data set (the designated 
+#raw data) as the input and create a tidy data set (result_tidy_data.txt).
+#For further info, please read the README.MD and CodeBook.MD files.
 
 #include libraries
 library(plyr)
 library(dplyr)
 
-##load data sets
-#assuming the Samsung data sets are in the working directory 
-#(under "HCI HAR Dataset") folder
+##Load data sets
+#Note. the the Samsung data sets (raw data) are required in 
+#the working directory (under "HCI HAR Dataset") folder.
 te_st <- read.table("./UCI HAR Dataset/test/subject_test.txt")
 te_X <- read.table("./UCI HAR Dataset/test/X_test.txt")
 te_y <- read.table("./UCI HAR Dataset/test/y_test.txt")
@@ -55,10 +58,8 @@ colnames(ext_data)[3:ncol(ext_data)] <- proper_names
 ##and each subject.
 #convert subject_id from int to factor
 ext_data$subject_id <- as.factor(ext_data$subject_id)
-####split data by subject_id and activity
-####spl_data <- split(ext_data, list(ext_data$subject_id, ext_data$activity))
-###e_group <- group_by(ext_data, subject_id, activity)
 #calculate the the average of each variable for each activity
+#and return the result
 tidy_data <- aggregate(ext_data[, 3:ncol(ext_data)], list(ext_data$subject_id, 
                                               ext_data$activity), mean)
 #change the names of subject_id and activity back
@@ -67,7 +68,7 @@ names(tidy_data)[2] <- "activity"
 #order the tidy_data by subject_id
 tidy_data <- tidy_data[order(tidy_data$subject_id), ]
 
-##Export the tidy_data to the work directory
+##Export the tidy_data to the working directory
 write.table(tidy_data, "result_tiny_data.txt", row.names = FALSE, sep = "\t")
 
 
