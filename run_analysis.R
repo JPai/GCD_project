@@ -28,7 +28,8 @@ whole_data <- join(test_data, train_data, type = "full")
 
 ##Extracts only the measurements on the mean and standard deviation for 
 ##each measurement.
-f_mean_std <- f[c(grep("mean()", f$V2, fixed = TRUE), grep("std()", f$V2)), ]
+f_mean_std <- f[c(grep("mean", f$V2, ignore.case = TRUE), 
+                  grep("std()", f$V2, ignore.case = TRUE)), ]
 ext_data <- whole_data[, c(1:2, (f_mean_std$V1 + 2))]
 
 ##Uses descriptive activity names to name the activities in the data set
@@ -58,7 +59,7 @@ ext_data$subject_id <- as.factor(ext_data$subject_id)
 ####spl_data <- split(ext_data, list(ext_data$subject_id, ext_data$activity))
 ###e_group <- group_by(ext_data, subject_id, activity)
 #calculate the the average of each variable for each activity
-tidy_data <- aggregate(ext_data[, 3:68], list(ext_data$subject_id, 
+tidy_data <- aggregate(ext_data[, 3:ncol(ext_data)], list(ext_data$subject_id, 
                                               ext_data$activity), mean)
 #change the names of subject_id and activity back
 names(tidy_data)[1] <- "subject_id"
@@ -67,6 +68,6 @@ names(tidy_data)[2] <- "activity"
 tidy_data <- tidy_data[order(tidy_data$subject_id), ]
 
 ##Export the tidy_data to the work directory
-write.table(tidy_data, "result_tiny_data.txt", row.names = FALSE)
+write.table(tidy_data, "result_tiny_data.txt", row.names = FALSE, sep = "\t")
 
 
