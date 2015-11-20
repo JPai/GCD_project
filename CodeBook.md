@@ -44,20 +44,39 @@ The set of variables that were estimated from these signals are:
 
 Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
 
-*gravityMean
-*tBodyAccMean
-*tBodyAccJerkMean
-*tBodyGyroMean
-*tBodyGyroJerkMean
+* gravityMean
+* tBodyAccMean
+* tBodyAccJerkMean
+* tBodyGyroMean
+* tBodyGyroJerkMean
 
 ###Code book
+The tidy data set (`result_tidy_data.txt`) contains 88 variables. Each observation represents the average of a *feature* for a *subject* (volunteer) doing a kind of *activity*.
 
+**Variables**
 
+* subject_id: 
+    * variable type: factor
+    * allowable value: 30 levels, "1" to "30"
+    * description: the assigned id for the experiment volunteers
+* activity:
+    * variable type: factor
+    * allowable value: 6 levels, "WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING"
+    * description: the activity performed by the volunteer
 
+For the rest 86 variables, they have the same structure as following:  
 
+* **mean-feature**:
+     * variable type: numeric
+     * allowable value: -1 to 1
+     * description: the average of **feature** for the volunteer doing the activity.
 
+Example: 
 
+* mean-tBodyAcc-mean()-X:
+     * variable type: numeric
+     * allowable value: -1 to 1
+     * description: the average of tBodyAcc-mean()-X for the volunteer doing the activity.
+     
 Notes: 
-======
 - Features are normalized and bounded within [-1,1].
-- Each feature vector is a row on the text file.
